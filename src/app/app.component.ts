@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Quest';
+
+  title = 'Movies List';
+
+  showMovies: boolean = true;
+  
+  displayMovies() {
+    this.showMovies = !this.showMovies;
+  }
+
 }
