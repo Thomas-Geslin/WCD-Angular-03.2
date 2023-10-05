@@ -1,0 +1,50 @@
+<form (ngSubmit)="searchMovieForm.valid && onSubmit()" [formGroup]="searchMovieForm" #myForm="ngForm">
+    <div formGroupName="info">
+        <div>
+            <label for="info-id">Identifiant</label>
+            <input type="text" name="info-id" formControlName="identifiant" />
+        </div>
+        
+        <div>
+            <label for="info-title">Title</label>
+            <input type="text" name="info-title" formControlName="title" />
+        </div>
+
+        <div *ngIf="searchMovieForm.controls.info.errors">
+            <span *ngIf="myForm.submitted && searchMovieForm.controls.info.errors?.['isRequired']">L'un des deux champs 'Identifiant' ou 'Titre' doit être renseigné</span>
+        </div>
+    </div>
+
+
+    <div>
+        <select>
+            <ng-container *ngFor="let option of typeArray">
+                <option value={{option}} selected *ngIf="option=='serie'">{{option}}</option>
+                <option value={{option}} *ngIf="option!=='serie'">{{option}}</option>
+            </ng-container>
+        </select>
+    </div>
+
+
+    <div>
+        <label for="release-year">Année de sortie</label>
+        <input type="text" name="release-year" formControlName="releaseYear" />
+    </div>
+
+    <div *ngIf="searchMovieForm.controls.releaseYear.errors">
+        <span *ngIf="myForm.submitted && searchMovieForm.controls.releaseYear.errors?.['min']">L'année doit être comprise {{searchMovieForm.controls.releaseYear.errors?.['min'].minimum}} entre et {{searchMovieForm.controls.releaseYear.errors?.['min'].maximum}}</span>
+    </div>
+
+
+    <div>
+        <select formControlName="fiche">
+            <ng-container *ngFor="let option of ficheArray">
+                <option value={{option}}>{{option}}</option>
+            </ng-container>
+        </select>
+
+    </div>
+
+
+    <button type="submit">Sauvegarder</button>
+</form>
